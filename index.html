@@ -14,24 +14,28 @@
     <style>
         /* Gaya tambahan */
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        
+        /* Sembunyikan scrollbar untuk paparan mobile yang lebih kemas */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="min-h-screen bg-sky-100 pb-12">
 
     <!-- Header/Banner Sekolah -->
     <header class="bg-gradient-to-r from-blue-500 via-sky-400 to-teal-400 text-white p-6 shadow-md border-b-8 border-yellow-400">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between">
-            <div class="flex items-center space-x-4">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-4 md:gap-0">
+            <div class="flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-4">
                 <div class="bg-white p-2 rounded-full shadow-lg flex items-center justify-center">
                     <img src="https://i.postimg.cc/V6LnHkFk/LOGO_SKSE_utk_background_putih_(2).jpg" alt="Logo SK Simpang Empat" class="w-14 h-14 object-contain rounded-full">
                 </div>
                 <div>
-                    <h1 class="text-3xl font-extrabold tracking-wide drop-shadow-md">SK Simpang Empat</h1>
-                    <p class="text-sky-100 font-medium text-lg">Sistem Semakan Buku (Pengisian Pukal)</p>
+                    <h1 class="text-2xl sm:text-3xl font-extrabold tracking-wide drop-shadow-md">SK Simpang Empat</h1>
+                    <p class="text-sky-100 font-medium text-sm sm:text-lg">Sistem Semakan Buku (Cikgu Zainul)</p>
                 </div>
             </div>
-            <div class="mt-4 md:mt-0 flex space-x-2">
-                 <span class="bg-yellow-400 text-blue-900 px-4 py-2 rounded-full font-bold text-sm shadow-sm flex items-center">
+            <div class="flex space-x-2">
+                 <span class="bg-yellow-400 text-blue-900 px-4 py-2 rounded-full font-bold text-xs sm:text-sm shadow-sm flex items-center">
                      <i data-lucide="graduation-cap" class="w-4 h-4 mr-2"></i>
                      Ceria & Berdisiplin
                  </span>
@@ -40,12 +44,15 @@
     </header>
 
     <!-- Navigation Tabs -->
-    <div class="max-w-6xl mx-auto mt-6 px-4 flex space-x-2 border-b-2 border-blue-300">
-        <button id="btn-tab-pengisian" onclick="tukarTab('pengisian')" class="bg-blue-600 text-white px-6 py-3 rounded-t-2xl font-bold flex items-center shadow-md transition-all">
-            <i data-lucide="edit-3" class="w-5 h-5 mr-2"></i> Pengisian Rekod
+    <div class="max-w-6xl mx-auto mt-6 px-4 flex space-x-2 border-b-2 border-blue-300 overflow-x-auto hide-scrollbar">
+        <button id="btn-tab-pengisian" onclick="tukarTab('pengisian')" class="bg-blue-600 text-white px-4 sm:px-6 py-3 rounded-t-2xl font-bold flex items-center shadow-md transition-all whitespace-nowrap text-sm sm:text-base">
+            <i data-lucide="edit-3" class="w-4 h-4 sm:w-5 sm:h-5 mr-2"></i> Pengisian Rekod
         </button>
-        <button id="btn-tab-analisa" onclick="tukarTab('analisa')" class="bg-white text-gray-600 hover:bg-sky-50 hover:text-blue-600 px-6 py-3 rounded-t-2xl font-bold flex items-center shadow-md transition-all">
-            <i data-lucide="pie-chart" class="w-5 h-5 mr-2"></i> Analisa Kelas (Sesi Ini)
+        <button id="btn-tab-analisa" onclick="tukarTab('analisa')" class="bg-white text-gray-600 hover:bg-sky-50 hover:text-blue-600 px-4 sm:px-6 py-3 rounded-t-2xl font-bold flex items-center shadow-md transition-all whitespace-nowrap text-sm sm:text-base">
+            <i data-lucide="pie-chart" class="w-4 h-4 sm:w-5 sm:h-5 mr-2"></i> Analisa Kelas
+        </button>
+        <button id="btn-tab-individu" onclick="tukarTab('individu')" class="bg-white text-gray-600 hover:bg-sky-50 hover:text-blue-600 px-4 sm:px-6 py-3 rounded-t-2xl font-bold flex items-center shadow-md transition-all whitespace-nowrap text-sm sm:text-base">
+            <i data-lucide="user-search" class="w-4 h-4 sm:w-5 sm:h-5 mr-2"></i> Analisa Individu
         </button>
     </div>
 
@@ -102,7 +109,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 
                 <!-- Bahagian Kiri: Senarai Murid -->
-                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-sky-200 flex flex-col h-[600px]">
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-sky-200 flex flex-col h-[550px] lg:h-[650px]">
                     <div class="bg-blue-500 p-4 flex justify-between items-center">
                         <h2 class="text-xl font-bold text-white flex items-center">
                             <i data-lucide="user" class="w-5 h-5 mr-2"></i>
@@ -116,16 +123,16 @@
                     <!-- Paparan jika belum pilih kelas/buku -->
                     <div id="paparan-kosong-murid" class="flex-1 flex flex-col items-center justify-center p-8 text-center text-gray-400">
                         <i data-lucide="users" class="w-16 h-16 mb-4 text-sky-200"></i>
-                        <p class="text-xl font-medium text-gray-500">Sila pilih Kelas di atas terlebih dahulu.</p>
+                        <p class="text-lg sm:text-xl font-medium text-gray-500">Sila pilih Kelas di atas terlebih dahulu.</p>
                     </div>
 
                     <!-- Paparan jika kelas dipilih -->
                     <div id="paparan-senarai-murid" class="hidden flex-1 flex flex-col overflow-hidden">
-                        <div class="p-4 bg-sky-50 border-b border-sky-100 flex justify-center space-x-4">
-                            <button onclick="tetapkanSemuaStatus('Hantar')" class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow transition-colors flex items-center justify-center text-sm">
+                        <div class="p-4 bg-sky-50 border-b border-sky-100 flex flex-col sm:flex-row justify-center gap-3">
+                            <button onclick="tetapkanSemuaStatus('Hantar')" class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-2.5 px-4 rounded-lg shadow transition-colors flex items-center justify-center text-sm">
                                 <i data-lucide="check-circle" class="w-4 h-4 mr-2"></i> Tanda Semua HANTAR
                             </button>
-                            <button onclick="tetapkanSemuaStatus('Tidak Hantar')" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow transition-colors flex items-center justify-center text-sm">
+                            <button onclick="tetapkanSemuaStatus('Tidak Hantar')" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-2.5 px-4 rounded-lg shadow transition-colors flex items-center justify-center text-sm">
                                 <i data-lucide="x-circle" class="w-4 h-4 mr-2"></i> Tanda Semua TIDAK
                             </button>
                         </div>
@@ -135,9 +142,9 @@
                         </div>
 
                         <div class="p-4 bg-white border-t-2 border-sky-100">
-                            <button id="btn-simpan" onclick="simpanRekodPukal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold py-4 px-6 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 flex items-center justify-center">
-                                <i id="ikon-simpan" data-lucide="save" class="w-6 h-6 mr-2"></i>
-                                <i id="ikon-loading-simpan" data-lucide="loader-2" class="w-6 h-6 mr-2 animate-spin hidden"></i>
+                            <button id="btn-simpan" onclick="simpanRekodPukal()" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-base sm:text-lg font-bold py-3 sm:py-4 px-6 rounded-xl shadow-lg transition-all transform hover:-translate-y-1 flex items-center justify-center">
+                                <i id="ikon-simpan" data-lucide="save" class="w-5 h-5 sm:w-6 sm:h-6 mr-2"></i>
+                                <i id="ikon-loading-simpan" data-lucide="loader-2" class="w-5 h-5 sm:w-6 sm:h-6 mr-2 animate-spin hidden"></i>
                                 <span id="teks-simpan">Simpan Rekod Pukal</span>
                             </button>
                         </div>
@@ -145,7 +152,7 @@
                 </div>
 
                 <!-- Bahagian Kanan: Paparan Database -->
-                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-sky-200 flex flex-col h-[600px]">
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-sky-200 flex flex-col h-[550px] lg:h-[650px]">
                     <div class="bg-teal-400 p-4 flex justify-between items-center">
                         <h2 class="text-xl font-bold text-white flex items-center">
                             <i data-lucide="list" class="w-5 h-5 mr-2"></i>
@@ -156,9 +163,9 @@
                         </span>
                     </div>
                     
-                    <div class="flex-1 overflow-y-auto p-2">
+                    <div class="flex-1 overflow-auto p-2">
                         <table class="w-full text-left border-collapse text-sm">
-                            <thead class="sticky top-0 bg-sky-50 shadow-sm">
+                            <thead class="sticky top-0 bg-sky-50 shadow-sm z-10">
                                 <tr class="text-sky-800 border-b border-sky-200">
                                     <th class="p-3 font-bold">Maklumat Murid</th>
                                     <th class="p-3 font-bold text-center">Status</th>
@@ -197,7 +204,7 @@
                         Tapis Kekerapan Penghantaran:
                     </div>
                     <select id="tapis-masa" onchange="renderAnalisa()" class="w-full md:w-auto border-2 border-purple-200 rounded-xl p-2.5 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-200 bg-white text-gray-700 font-bold shadow-sm cursor-pointer">
-                        <option value="semua">Keseluruhan Waktu (Sesi Ini)</option>
+                        <option value="semua">Keseluruhan Waktu</option>
                         <option value="mingguan">Mingguan (7 Hari Terakhir)</option>
                         <option value="bulanan">Bulanan (Bulan Ini)</option>
                     </select>
@@ -214,6 +221,53 @@
                         <i data-lucide="pie-chart" class="w-20 h-20 mx-auto mb-4 text-sky-200"></i>
                         <p class="text-xl font-medium text-gray-500">Belum ada rekod dimasukkan pada sesi ini.</p>
                         <p class="text-sm mt-2">Sila buat pengisian rekod di tab "Pengisian Rekod" terlebih dahulu untuk melihat analisa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 3: PAPARAN ANALISA INDIVIDU            -->
+        <!-- ========================================== -->
+        <div id="paparan-individu" class="hidden space-y-8">
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-sky-200 min-h-[500px]">
+                <div class="bg-indigo-500 p-4 flex justify-between items-center">
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i data-lucide="user-search" class="w-5 h-5 mr-2"></i>
+                        Analisa Penghantaran Individu
+                    </h2>
+                    <span class="bg-white text-indigo-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                        Rekod Murid Terperinci
+                    </span>
+                </div>
+                
+                <!-- Filter Kelas & Nama -->
+                <div class="bg-indigo-50 border-b border-indigo-100 p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2 flex items-center">
+                            <i data-lucide="users" class="w-4 h-4 mr-2 text-indigo-500"></i> Pilih Kelas
+                        </label>
+                        <select id="pilih-kelas-individu" onchange="handleKelasIndividuChange()" class="w-full border-2 border-indigo-200 rounded-xl p-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 bg-white text-gray-800 font-semibold text-lg cursor-pointer">
+                            <option value="">-- Sila Pilih Kelas --</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2 flex items-center">
+                            <i data-lucide="user" class="w-4 h-4 mr-2 text-indigo-500"></i> Pilih Nama Murid
+                        </label>
+                        <select id="pilih-nama-individu" onchange="renderAnalisaIndividu()" disabled class="w-full border-2 border-indigo-200 rounded-xl p-3 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 bg-white text-gray-800 font-semibold text-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+                            <option value="">-- Sila Pilih Kelas Dahulu --</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <!-- Bekas Jadual Individu -->
+                    <div id="bekas-rekod-individu" class="overflow-x-auto">
+                        <div class="text-center py-10 text-gray-400">
+                            <i data-lucide="search" class="w-16 h-16 mx-auto mb-4 text-indigo-200"></i>
+                            <p class="text-lg font-medium text-gray-500">Sila pilih Kelas dan Nama Murid untuk mula melihat rekod.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -266,30 +320,25 @@
         // FUNGSI TUKAR TAB (PENGISIAN vs ANALISA)
         // ==========================================
         function tukarTab(namaTab) {
-            const tabPengisian = document.getElementById('paparan-pengisian');
-            const tabAnalisa = document.getElementById('paparan-analisa');
-            const btnPengisian = document.getElementById('btn-tab-pengisian');
-            const btnAnalisa = document.getElementById('btn-tab-analisa');
+            const tabs = ['pengisian', 'analisa', 'individu'];
+            
+            tabs.forEach(tab => {
+                const paparan = document.getElementById(`paparan-${tab}`);
+                const btn = document.getElementById(`btn-tab-${tab}`);
+                
+                if (tab === namaTab) {
+                    paparan.classList.remove('hidden');
+                    btn.className = "bg-blue-600 text-white px-6 py-3 rounded-t-2xl font-bold flex items-center shadow-md transition-all whitespace-nowrap";
+                } else {
+                    paparan.classList.add('hidden');
+                    btn.className = "bg-white text-gray-600 hover:bg-sky-50 hover:text-blue-600 px-6 py-3 rounded-t-2xl font-bold flex items-center shadow-md transition-all whitespace-nowrap";
+                }
+            });
 
-            if (namaTab === 'pengisian') {
-                tabPengisian.classList.remove('hidden');
-                tabAnalisa.classList.add('hidden');
-                
-                // Gayakan butang aktif
-                btnPengisian.className = "bg-blue-600 text-white px-6 py-3 rounded-t-2xl font-bold flex items-center shadow-md transition-all";
-                // Gayakan butang tidak aktif
-                btnAnalisa.className = "bg-white text-gray-600 hover:bg-sky-50 hover:text-blue-600 px-6 py-3 rounded-t-2xl font-bold flex items-center shadow-md transition-all";
-            } else {
-                tabPengisian.classList.add('hidden');
-                tabAnalisa.classList.remove('hidden');
-                
-                // Gayakan butang aktif
-                btnAnalisa.className = "bg-blue-600 text-white px-6 py-3 rounded-t-2xl font-bold flex items-center shadow-md transition-all";
-                // Gayakan butang tidak aktif
-                btnPengisian.className = "bg-white text-gray-600 hover:bg-sky-50 hover:text-blue-600 px-6 py-3 rounded-t-2xl font-bold flex items-center shadow-md transition-all";
-                
-                // Sentiasa render (kemas kini) analisa setiap kali tab dibuka
+            if (namaTab === 'analisa') {
                 renderAnalisa();
+            } else if (namaTab === 'individu') {
+                renderAnalisaIndividu();
             }
         }
 
@@ -473,12 +522,23 @@
 
         function kemaskiniDropdownKelas(senaraiKelas) {
             const selectKelas = document.getElementById('pilih-kelas');
+            const selectKelasIndividu = document.getElementById('pilih-kelas-individu');
+            
             selectKelas.innerHTML = '<option value="">-- Sila Pilih Kelas --</option>';
+            if (selectKelasIndividu) selectKelasIndividu.innerHTML = '<option value="">-- Sila Pilih Kelas --</option>';
+            
             senaraiKelas.forEach(kelas => {
                 const option = document.createElement('option');
                 option.value = kelas;
                 option.textContent = kelas;
                 selectKelas.appendChild(option);
+                
+                if (selectKelasIndividu) {
+                    const optIndividu = document.createElement('option');
+                    optIndividu.value = kelas;
+                    optIndividu.textContent = kelas;
+                    selectKelasIndividu.appendChild(optIndividu);
+                }
             });
         }
 
@@ -514,14 +574,14 @@
                 const isHantar = murid.status === 'Hantar';
                 
                 const htmlMurid = `
-                    <div class="bg-white border border-gray-200 rounded-xl p-3 flex items-center justify-between shadow-sm hover:shadow-md transition-shadow">
-                        <div class="font-semibold text-gray-800">${murid.nama}</div>
-                        <div class="flex bg-gray-100 rounded-lg p-1 space-x-1">
-                            <button onclick="ubahStatusIndividu(${index}, 'Hantar')" class="px-4 py-1.5 rounded-md text-sm font-bold flex items-center transition-colors ${isHantar ? 'bg-green-500 text-white shadow' : 'text-gray-500 hover:bg-gray-200'}">
-                                <i data-lucide="check-circle" class="w-3.5 h-3.5 mr-1"></i> Hantar
+                    <div class="bg-white border border-gray-200 rounded-xl p-3 flex flex-col sm:flex-row items-start sm:items-center justify-between shadow-sm hover:shadow-md transition-shadow gap-3 sm:gap-0">
+                        <div class="font-semibold text-gray-800 w-full sm:w-auto">${murid.nama}</div>
+                        <div class="flex bg-gray-100 rounded-lg p-1 space-x-1 w-full sm:w-auto justify-center">
+                            <button onclick="ubahStatusIndividu(${index}, 'Hantar')" class="flex-1 sm:flex-none px-4 py-2 sm:py-1.5 rounded-md text-sm font-bold flex items-center justify-center transition-colors ${isHantar ? 'bg-green-500 text-white shadow' : 'text-gray-500 hover:bg-gray-200'}">
+                                <i data-lucide="check-circle" class="w-4 h-4 sm:w-3.5 sm:h-3.5 mr-1.5 sm:mr-1"></i> Hantar
                             </button>
-                            <button onclick="ubahStatusIndividu(${index}, 'Tidak Hantar')" class="px-4 py-1.5 rounded-md text-sm font-bold flex items-center transition-colors ${!isHantar ? 'bg-red-500 text-white shadow' : 'text-gray-500 hover:bg-gray-200'}">
-                                <i data-lucide="x-circle" class="w-3.5 h-3.5 mr-1"></i> Tidak
+                            <button onclick="ubahStatusIndividu(${index}, 'Tidak Hantar')" class="flex-1 sm:flex-none px-4 py-2 sm:py-1.5 rounded-md text-sm font-bold flex items-center justify-center transition-colors ${!isHantar ? 'bg-red-500 text-white shadow' : 'text-gray-500 hover:bg-gray-200'}">
+                                <i data-lucide="x-circle" class="w-4 h-4 sm:w-3.5 sm:h-3.5 mr-1.5 sm:mr-1"></i> Tidak
                             </button>
                         </div>
                     </div>
@@ -638,6 +698,116 @@
                 `;
                 jadual.insertAdjacentHTML('beforeend', tr);
             });
+            lucide.createIcons();
+        }
+
+        // ==========================================
+        // FUNGSI ANALISA INDIVIDU
+        // ==========================================
+        function handleKelasIndividuChange() {
+            const kelas = document.getElementById('pilih-kelas-individu').value;
+            const selectNama = document.getElementById('pilih-nama-individu');
+            const bekasRekod = document.getElementById('bekas-rekod-individu');
+
+            // Reset paparan bawah
+            bekasRekod.innerHTML = `
+                <div class="text-center py-10 text-gray-400">
+                    <i data-lucide="search" class="w-16 h-16 mx-auto mb-4 text-indigo-200"></i>
+                    <p class="text-lg font-medium text-gray-500">Sila pilih Nama Murid untuk mula melihat rekod.</p>
+                </div>
+            `;
+            lucide.createIcons();
+
+            if (!kelas) {
+                selectNama.innerHTML = '<option value="">-- Sila Pilih Kelas Dahulu --</option>';
+                selectNama.disabled = true;
+                return;
+            }
+
+            selectNama.disabled = false;
+            selectNama.innerHTML = '<option value="">-- Sila Pilih Nama Murid --</option>';
+            
+            const senaraiNama = dataMuridDb[kelas] || [];
+            senaraiNama.forEach(nama => {
+                const option = document.createElement('option');
+                option.value = nama;
+                option.textContent = nama;
+                selectNama.appendChild(option);
+            });
+        }
+
+        function renderAnalisaIndividu() {
+            const kelas = document.getElementById('pilih-kelas-individu').value;
+            const nama = document.getElementById('pilih-nama-individu').value;
+            const bekasRekod = document.getElementById('bekas-rekod-individu');
+
+            if (!kelas || !nama) {
+                return; // Tunggu sehingga kedua-dua dipilih
+            }
+
+            // Tapis rekod berdasarkan kelas dan nama
+            const rekodMurid = rekodDisimpan.filter(r => r.namaKelas === kelas && r.namaMurid === nama);
+
+            if (rekodMurid.length === 0) {
+                bekasRekod.innerHTML = `
+                    <div class="text-center py-10 text-gray-400">
+                        <i data-lucide="folder-open" class="w-16 h-16 mx-auto mb-4 text-indigo-200"></i>
+                        <p class="text-lg font-medium">Tiada maklumat direkodkan untuk <b>${nama}</b> pada sesi ini.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            // Kira statistik
+            let hantar = 0;
+            let tidakHantar = 0;
+            rekodMurid.forEach(r => {
+                if(r.statusHantar === 'Hantar') hantar++;
+                else tidakHantar++;
+            });
+
+            // Bina paparan jadual rekod individu
+            let tableHtml = `
+                <div class="mb-4 flex flex-wrap gap-4">
+                    <div class="bg-green-100 text-green-800 px-4 py-2 rounded-xl font-bold border border-green-200 flex items-center shadow-sm">
+                        <i data-lucide="check-circle" class="w-5 h-5 mr-2 text-green-600"></i> Jumlah Hantar: ${hantar}
+                    </div>
+                    <div class="bg-red-100 text-red-800 px-4 py-2 rounded-xl font-bold border border-red-200 flex items-center shadow-sm">
+                        <i data-lucide="x-circle" class="w-5 h-5 mr-2 text-red-600"></i> Jumlah Tidak Hantar: ${tidakHantar}
+                    </div>
+                </div>
+                
+                <table class="w-full text-left border-collapse text-sm border-2 border-indigo-100 rounded-xl overflow-hidden shadow-sm">
+                    <thead class="bg-indigo-50">
+                        <tr class="text-indigo-800 border-b-2 border-indigo-100">
+                            <th class="p-4 font-bold">Tarikh Serahan</th>
+                            <th class="p-4 font-bold">Jenis Buku</th>
+                            <th class="p-4 font-bold text-center">Status Penghantaran</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            rekodMurid.forEach((r, idx) => {
+                const bgWarna = idx % 2 === 0 ? 'bg-white' : 'bg-indigo-50/30';
+                const statusHtml = r.statusHantar === 'Hantar' 
+                    ? `<span class="inline-flex items-center bg-green-100 text-green-700 font-bold px-3 py-1 rounded-full border border-green-200 shadow-sm"><i data-lucide="check-circle" class="w-4 h-4 mr-1"></i> Hantar</span>`
+                    : `<span class="inline-flex items-center bg-red-100 text-red-700 font-bold px-3 py-1 rounded-full border border-red-200 shadow-sm"><i data-lucide="x-circle" class="w-4 h-4 mr-1"></i> Tidak Hantar</span>`;
+
+                tableHtml += `
+                    <tr class="${bgWarna} border-b border-indigo-50 hover:bg-indigo-50 transition-colors">
+                        <td class="p-4 font-medium text-gray-700 flex items-center">
+                            <i data-lucide="calendar" class="w-4 h-4 mr-2 text-indigo-400"></i> ${r.tarikh}
+                        </td>
+                        <td class="p-4 font-bold text-gray-800">${r.jenisBuku}</td>
+                        <td class="p-4 text-center align-middle">${statusHtml}</td>
+                    </tr>
+                `;
+            });
+
+            tableHtml += `</tbody></table>`;
+            bekasRekod.innerHTML = tableHtml;
             lucide.createIcons();
         }
 
