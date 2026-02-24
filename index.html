@@ -193,7 +193,7 @@
                         Analisa Penghantaran Buku Mengikut Kelas
                     </h2>
                     <span class="bg-white text-purple-700 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
-                        Data Sesi Semasa
+                        Data Keseluruhan
                     </span>
                 </div>
                 
@@ -219,7 +219,7 @@
                     <!-- Paparan Kosong Analisa -->
                     <div id="analisa-kosong" class="text-center py-20 text-gray-400">
                         <i data-lucide="pie-chart" class="w-20 h-20 mx-auto mb-4 text-sky-200"></i>
-                        <p class="text-xl font-medium text-gray-500">Belum ada rekod dimasukkan pada sesi ini.</p>
+                        <p class="text-xl font-medium text-gray-500">Belum ada rekod dimasukkan ke dalam pangkalan data.</p>
                         <p class="text-sm mt-2">Sila buat pengisian rekod di tab "Pengisian Rekod" terlebih dahulu untuk melihat analisa.</p>
                     </div>
                 </div>
@@ -282,7 +282,7 @@
     <!-- Logik Sistem (JavaScript) -->
     <script>
         // --- KONFIGURASI PANGKALAN DATA ---
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxIJTZSER27N-689zvk7P4Isc5bAYGMv97zlutzxAgikejq6I1f0hi8XT-nZ17bnYGU/exec'; 
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx5_m4Hfx5sy_BoWGCHJsmSoZLXvFKjsiH_HbVrkscm_nW--RA5sVuzmoECpGf6FLm4/exec'; 
 
         // Data Sistem
         let dataMuridDb = {};
@@ -353,7 +353,7 @@
             // Reset paparan kosong kepada mesej asal jika ia ditukar sebelum ini
             paparanKosong.innerHTML = `
                 <i data-lucide="pie-chart" class="w-20 h-20 mx-auto mb-4 text-sky-200"></i>
-                <p class="text-xl font-medium text-gray-500">Belum ada rekod dimasukkan pada sesi ini.</p>
+                <p class="text-xl font-medium text-gray-500">Belum ada rekod dimasukkan ke dalam pangkalan data.</p>
                 <p class="text-sm mt-2">Sila buat pengisian rekod di tab "Pengisian Rekod" terlebih dahulu untuk melihat analisa.</p>
             `;
 
@@ -502,10 +502,20 @@
             selectKelas.disabled = true;
 
             try {
-                const response = await fetch(`${SCRIPT_URL}?action=getMurid`);
+                // TUKAR: Fetch 'getData' untuk tarik Senarai Murid DAN Sejarah Rekod sekaligus
+                const response = await fetch(`${SCRIPT_URL}?action=getData`);
                 const data = await response.json();
+                
                 dataMuridDb = data.murid;
                 kemaskiniDropdownKelas(Object.keys(data.murid));
+                
+                // FUNGSI BARU: Paparkan sejarah rekod dari pangkalan data
+                if (data.rekod && data.rekod.length > 0) {
+                    // Terbalikkan array supaya rekod yang paling terbaharu dipaparkan di bahagian atas
+                    rekodDisimpan = data.rekod.reverse();
+                    renderJadualRekod();
+                }
+                
             } catch (error) {
                 console.error("Ralat memuat turun:", error);
                 // Data dummy jika gagal tarik (untuk tujuan demo)
@@ -752,7 +762,7 @@
                 bekasRekod.innerHTML = `
                     <div class="text-center py-10 text-gray-400">
                         <i data-lucide="folder-open" class="w-16 h-16 mx-auto mb-4 text-indigo-200"></i>
-                        <p class="text-lg font-medium">Tiada maklumat direkodkan untuk <b>${nama}</b> pada sesi ini.</p>
+                        <p class="text-lg font-medium">Tiada maklumat direkodkan untuk <b>${nama}</b> di dalam pangkalan data.</p>
                     </div>
                 `;
                 lucide.createIcons();
